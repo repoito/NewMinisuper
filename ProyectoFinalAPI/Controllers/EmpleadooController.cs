@@ -87,5 +87,34 @@ namespace ProyectoFinalAPI.Controllers
             _dbContext.SaveChanges();
             return NoContent();
         }
+
+        // GET api/empleados/username/{id}
+        [HttpGet("username/{id}")]
+        public IActionResult GetEmpleadoByUserName(int id)
+        {
+            var empleado = _dbContext.Empleados.FirstOrDefault(e => e.Id == id);
+            if (empleado == null)
+            {
+                return NotFound();
+            }
+            var empleadoUserName = new { empleado.UserName };
+            return Ok(empleadoUserName);
+        }
+
+        // GET api/empleados/password/{id}
+        [HttpGet("password/{id}")]
+        public IActionResult GetEmpleadoByPassword(int id)
+        {
+            var empleado = _dbContext.Empleados.FirstOrDefault(e => e.Id == id);
+            if (empleado == null)
+            {
+                return NotFound();
+            }
+            var empleadoPassword = new { empleado.Password };
+            return Ok(empleadoPassword);
+        }
+
     }
+
 }
+
