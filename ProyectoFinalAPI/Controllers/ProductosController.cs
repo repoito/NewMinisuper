@@ -28,21 +28,19 @@ namespace ProyectoFinalAPI.Controllers
                 return await _context.Productos.ToListAsync();
             }
 
-            // GET: api/Productos/{nombre}
-            [HttpGet("{Tipo de producto}")]
-            public async Task<ActionResult<IEnumerable<Producto>>> GetProductosPorNombre(string nombre)
+            // GET: api/Productos/{id}
+            [HttpGet("{id}")]
+            public async Task<ActionResult<Producto>> GetProductoById(int id)
             {
-                var productos = await _context.Productos
-                    .Where(p => p.TipoProducto.Contains(nombre))
-                    .ToListAsync();
-
-                if (productos == null || productos.Count == 0)
+                var producto = await _context.Productos.FindAsync(id);
+                if (producto == null)
                 {
                     return NotFound();
                 }
 
-                return productos;
+                return producto;
             }
+
 
             // POST: api/Productos
             [HttpPost]

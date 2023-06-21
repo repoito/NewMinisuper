@@ -114,6 +114,21 @@ namespace ProyectoFinalAPI.Controllers
             return Ok(empleadoPassword);
         }
 
+        [HttpPost("login")]
+        public IActionResult Login([FromBody] Empleadoo request)
+        {
+            var empleado = _dbContext.Empleados.FirstOrDefault(e => e.UserName == request.UserName);
+
+            if (empleado != null && empleado.Password == request.Password)
+            {
+                // Autenticación exitosa
+                return Ok();
+            }
+
+            // Nombre de usuario o contraseña incorrectos
+            return Unauthorized();
+        }
+
     }
 
 }
